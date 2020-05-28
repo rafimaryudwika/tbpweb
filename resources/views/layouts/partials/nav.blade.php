@@ -82,6 +82,15 @@
                     </a>
                 </li>
             @endcan
+
+            @can('rooms_access')
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="{{ route('backend.schedules.index') }}">
+                        <i class="cil-clock c-sidebar-nav-icon"></i>
+                        Jadwal
+                    </a>
+                </li>
+            @endcan
         @endcanany
 
         <li class="c-sidebar-nav-item">
