@@ -25,7 +25,9 @@
                 <thead class="thead-light">
                 <tr>
                     <th>Hari</th>
+                    <th>Kelas</th>
                     <th>Jadwal</th>
+                    <th>Ruang</th>
                     <th>Semester</th>
                     <th>Aksi</th>
                 </tr>
@@ -34,6 +36,7 @@
                 @forelse($schedules as $schedules)
                     <tr>
                         <td>{{ $schedules->day }}</td>
+                        <td>{{ $schedules->matkul->name}}</td>
                         <td>
                             {{ $schedules->start_at }}
                             <br>
@@ -41,11 +44,12 @@
                             <br>
                             {{ $schedules->end_at }}
                         </td>
+                        <td>{{ $schedules->ruang->name}}</td>
                         <td>{{ $schedules->period }}</td>
                         <td>
                            
                             {!! cui()->btn_edit(route('backend.schedules.edit', [$schedules->id])) !!}
-                            {!! cui()->btn_delete(route('backend.schedules.destroy', [$schedules->id])) !!}
+                            {!! cui()->btn_edit(route('backend.schedules.destroy', [$schedules->id])) !!}
                         </td>
                     </tr>
                 @empty
