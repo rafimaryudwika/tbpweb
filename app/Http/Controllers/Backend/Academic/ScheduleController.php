@@ -85,7 +85,7 @@ class ScheduleController extends Controller
     {
         //
         $schedules = Semester::find($id);
-        $schedules->delete();
-        return redirect('/klp11.schedules.index');
+        $schedules->    delete();
+        return redirect()->route('backend.schedules.index');
     }
 }

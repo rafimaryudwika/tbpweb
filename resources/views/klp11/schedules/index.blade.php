@@ -12,6 +12,10 @@
     {!! cui()->toolbar_btn(route('backend.schedules.create'), 'cil-playlist-add', 'Tambah Jadwal') !!}
 @endsection
 
+@section('toolbar')
+    {!! cui()->toolbar_btn(route('backend.schedules.create'), 'cil-playlist-add', 'Tambah Jadwal') !!}
+@endsection
+
 @section('content')
 
     <div class="card">
@@ -47,14 +51,13 @@
                         <td>{{ $schedules->ruang->name}}</td>
                         <td>{{ $schedules->period }}</td>
                         <td>
-                           
                             {!! cui()->btn_edit(route('backend.schedules.edit', [$schedules->id])) !!}
-                            {!! cui()->btn_edit(route('backend.schedules.destroy', [$schedules->id])) !!}
+                            {!! cui()->btn_delete(route('backend.schedules.destroy', [$schedules->id]), "Anda yakin ingin menghapus jadwal perkuliahan ini?") !!}
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5">Belum ada jadwal</td>
+                        <td colspan="6">Belum ada jadwal</td>
                     </tr>
                 @endforelse
                 </tbody>
