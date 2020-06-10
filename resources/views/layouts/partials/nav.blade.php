@@ -15,10 +15,10 @@
             </a>
         </li>
 
-        @canany(['students_manage','lecturers_manage','staffs_manage','departments_manage','roles_manage'])
+        @canany(['students_manage','lecturers_manage','staffs_manage','departments_manage','roles_manage', 'semester_manage', 'schedule_manage'])
             <li class="c-sidebar-nav-title">Master</li>
 
-            @canany(['students_manage','lecturers_manage','staffs_manage'])
+            @canany(['students_manage','lecturers_manage','staffs_manage', 'semester_manage', 'schedule_manage'])
                 <li class="c-sidebar-nav-dropdown">
                     <a class="c-sidebar-nav-dropdown-toggle" href="/#">
                         <i class="cil-user c-sidebar-nav-icon"></i>
@@ -75,14 +75,9 @@
             @endcan
 
 
-            @can('faculties_manage')
-            <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link" href="{{ route('backend.semesters.index') }}">
-                        <i class="cil-3d c-sidebar-nav-icon"></i>
-                        Semester
-                    </a>
-                </li>
-
+            @can('semester_manage')
+          
+                @endcan
 
             @can('rooms_access')
                 <li class="c-sidebar-nav-item">
@@ -92,24 +87,26 @@
                     </a>
                 </li>
             @endcan
-                        
-                <li class="c-sidebar-nav-item">
+
+
+            @can('schedule_manage')
+                
+            @endcan
+        @endcanany
+
+          <li class="c-sidebar-nav-item">
                     <a class="c-sidebar-nav-link" href="{{ route('backend.semesters.index') }}">
                         <i class="cil-3d c-sidebar-nav-icon"></i>
                         Semester
                     </a>
                 </li>
-            
 
-            @can('rooms_access')
-                <li class="c-sidebar-nav-item">
+        <li class="c-sidebar-nav-item">
                     <a class="c-sidebar-nav-link" href="{{ route('backend.schedules.index') }}">
                         <i class="cil-clock c-sidebar-nav-icon"></i>
                         Jadwal
                     </a>
                 </li>
-            @endcan
-        @endcanany
 
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{ route('frontend.myintern-proposals.index') }}">

@@ -83,9 +83,9 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Backend', 'prefix' => 'adm
        Route::resource('semesters', 'SemesterController')->except(['show', 'destroy']);
        Route::resource('schedules', 'ScheduleController')->except(['show']);
 
-        Route::post('semesters', 'SemesterController@activate')->name('semesters.activate');
-        Route::resource('semesters', 'SemesterController')->except(['show', 'destroy']);
-        Route::resource('schedules', 'ScheduleController')->except(['show']);
+        //Route::post('semesters', 'SemesterController@activate')->name('semesters.activate');
+        //Route::resource('semesters', 'SemesterController')->except(['show', 'destroy']);
+        //Route::resource('schedules', 'ScheduleController')->except(['show']);
 
 
 
