@@ -73,6 +73,15 @@
                     </a>
                 </li>
             @endcan
+            @can('faculties_manage')
+
+            <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="{{ route('backend.semesters.index') }}">
+                        <i class="cil-3d c-sidebar-nav-icon"></i>
+                        Semester
+                    </a>
+                </li>
+
 
             
                 <li class="c-sidebar-nav-item">
@@ -84,6 +93,7 @@
            
 
             @can('rooms_access')
+
                 <li class="c-sidebar-nav-item">
                     <a class="c-sidebar-nav-link" href="{{ route('backend.rooms.index') }}">
                         <i class="cil-building c-sidebar-nav-icon"></i>
@@ -91,6 +101,25 @@
                     </a>
                 </li>
             @endcan
+
+            @can('rooms_access')
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="{{ route('backend.schedules.index') }}">
+                        <i class="cil-clock c-sidebar-nav-icon"></i>
+                        Jadwal
+                    </a>
+                </li>
+            @endcan
+
+            @can('rooms_access')
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="{{ route('backend.semesters.index') }}">
+                        <i class="cil-3d c-sidebar-nav-icon"></i>
+                        Semester
+                    </a>
+                </li>
+            @endcan
+
         @endcanany
 
         <li class="c-sidebar-nav-item">
