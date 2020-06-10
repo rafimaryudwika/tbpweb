@@ -15,11 +15,13 @@ class Room extends Model
     protected $table = 'rooms';
     protected $guarded = [];
 
-    public function building()
+    public function buildings()
     {
         return $this->belongsTo(Building::class);
     }
+
     public function class_schedules()
+
     {
         return $this->hasMany(ClassSchedule::class);
     }

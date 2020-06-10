@@ -83,6 +83,15 @@
                 </li>
 
 
+            
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="{{ route('backend.schedules.index') }}">
+                        <i class="cil-bank c-sidebar-nav-icon"></i>
+                        Schedules
+                    </a>
+                </li>
+           
+
             @can('rooms_access')
 
                 <li class="c-sidebar-nav-item">

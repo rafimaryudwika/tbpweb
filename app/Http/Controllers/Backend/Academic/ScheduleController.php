@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Backend\Academic;
 
 use App\Models\ClassSchedule;
+
+
 use App\Models\Schedules;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Classroom;
 use App\Models\Room;
+
 
 class ScheduleController extends Controller
 {
@@ -35,6 +38,8 @@ class ScheduleController extends Controller
     public function create()
     {
 
+        $haris = ClassSchedule::HARI_SELECT;
+
         //memanggil view tambah
        
      $classrooms = classroom::all()->pluck('id');
@@ -54,6 +59,7 @@ class ScheduleController extends Controller
             notify('error', 'Gagal menyimpan data kelas');
         }
         return redirect()->route('backend.schedules.show', $class_schedules->id);
+
 
     }
 
@@ -87,6 +93,13 @@ class ScheduleController extends Controller
     }
 
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+ 
     /**
      * Display the specified resource.
      *

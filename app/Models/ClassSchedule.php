@@ -22,6 +22,7 @@ class ClassSchedule extends Model
         self::JUMAT => 'Jumat',
     ];
 
+
     	public function matkul()
     	{
         	return $this->belongsTo(Classroom::class, 'classroom_id', 'id');
@@ -39,6 +40,7 @@ class ClassSchedule extends Model
   				'period' => 'required'
     		];
 
+
     protected $fillable = [ 'classroom_id', 'day', 'start_at', 'end_at', 'room_id', 'period'];
 
 
@@ -52,5 +54,3 @@ class ClassSchedule extends Model
     {
         return $this->belongsTo(room::class);
     }
-
-}

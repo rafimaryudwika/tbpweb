@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Schedules extends Model
 {
+
     const validation_rules = [
         'start_at' => 'required',
         'day' => 'required',
@@ -15,9 +16,13 @@ class Schedules extends Model
         'period' => 'required'
     ];
 
+
     protected $table = 'class_schedules';
 
     protected $guarded = [];
+
+    protected $fillable = [ 'classroom_id', 'day', 'start_at', 'end_at', 'room_id', 'period'];
+
 
 
 
