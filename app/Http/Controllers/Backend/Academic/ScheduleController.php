@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Academic;
 
 use App\Models\Schedules;
+use App\Models\ClassSchedule;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Classroom;
@@ -39,7 +40,7 @@ class ScheduleController extends Controller
        
      $classrooms = classroom::all()->pluck('id');
      $rooms = room::all()->pluck('id');
-     return view('backends.schedules.create');
+     return view('klp11.schedule.create');
     }
 
        public function store(Request $request)
