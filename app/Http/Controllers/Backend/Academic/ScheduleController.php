@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\Academic;
 
 use App\Http\Controllers\Controller;
-use App\Models\Semester;
+use App\Models\ClassSchedule;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -16,7 +16,7 @@ class ScheduleController extends Controller
     public function index()
     {
         //
-        $schedules = Semester::all();
+        $schedules = ClassSchedule::all();
         return view('klp11.schedules.index', ['schedules'=>$schedules]);
     }
 
@@ -84,7 +84,7 @@ class ScheduleController extends Controller
     public function destroy($id)
     {
         //
-        $schedules = Semester::find($id);
+        $schedules = ClassSchedule::find($id);
         $schedules->    delete();
         return redirect()->route('backend.schedules.index');
     }
