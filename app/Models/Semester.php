@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -12,14 +13,18 @@ class Semester extends Model
     const NACTIVE = 0;
     const GANJIL = 1;
     const GENAP = 0;
-
+  
+    protected $primaryKey = 'id';
+  
     public function user()
     {
         return $this->hasOne(User::class, 'id');
     }
 
     const AKTIF_SELECT = [
+
         self::ACTIVE => 'Aktif',
+
         self::NACTIVE => 'Tidak Aktif',
     ];
 
@@ -42,8 +47,9 @@ class Semester extends Model
         return data_get(self::PERIODE_SELECT, $this->period, null);
     }
 
+
     public $sortable = ['year'];
     
     protected $guarded=[];
-    
+
 }
