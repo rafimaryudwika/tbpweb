@@ -98,7 +98,7 @@ class DepartmentController extends Controller
             return redirect()->route('backend.departments.index');
         }else{
             notify('error', 'Gagal menghapus data Jurusan/Prodi');
-            return redirect()->back()->withErrors();
+            return redirect()->back()->withError();
         }
 
     }
