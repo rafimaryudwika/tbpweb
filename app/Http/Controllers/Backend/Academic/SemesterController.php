@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\Backend\Academic;
 
-
 use App\Http\Controllers\controller;
-
 use App\Models\Semester;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,27 +16,7 @@ class SemesterController extends Controller
      */
     public function index()
     {
-        $semesters = Semester::orderBy('year','asc')->paginate(5);
-        $semesters = Semester::all();
-        return view('klp11.semesters.index', ['semesters'=>$semesters]);
-    }
-    
-    public function activate(Request $request, Semester $semester)
-    {
-
-            $aktifkan = 1;
-            $nonaktifkan=0;
-            $semesters = Semester::all();
-            $semesters = Semester::where($request->id)
-            ->update([
-                    'aktif'=>$nonaktifkan
-                    ]); 
-            $semesters = Semester::where('id',$semester->id)
-            ->update([
-                    'aktif'=>$aktifkan
-                    ]);
-                     notify('success', 'Berhasil mengedit data Semester ');
-                     return redirect()->route('backend.semesters.index'); 
+        //
     }
 
     /**
@@ -134,8 +112,6 @@ class SemesterController extends Controller
      */
     public function destroy($id)
     {
-        $semesters = Semester::find($id);
-        $semesters->delete();
-        return redirect()->route('backend.semesters.index');
+        //
     }
 }
