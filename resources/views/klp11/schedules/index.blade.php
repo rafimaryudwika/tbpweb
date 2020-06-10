@@ -37,22 +37,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($schedules as $schedules)
+                @forelse($Schedules as $Schedules)
                     <tr>
-                        <td>{{ $schedules->day }}</td>
-                        <td>{{ $schedules->matkul->name}}</td>
+                        <td>{{ $Schedules->day }}</td>
+                        <td></td>
                         <td>
-                            {{ $schedules->start_at }}
+                            {{ $Schedules->start_at }}
                             <br>
                             s/d
                             <br>
-                            {{ $schedules->end_at }}
+                            {{ $Schedules->end_at }}
                         </td>
-                        <td>{{ $schedules->ruang->name}}</td>
-                        <td>{{ $schedules->period }}</td>
+                        <td>{{ $Schedules->ruang->name}}</td>
+                        <td>{{ $Schedules->period }}</td>
                         <td>
-                            {!! cui()->btn_edit(route('backend.schedules.edit', [$schedules->id])) !!}
-                            {!! cui()->btn_delete(route('backend.schedules.destroy', [$schedules->id]), "Anda yakin ingin menghapus jadwal perkuliahan ini?") !!}
+                            {!! cui()->btn_edit(route('backend.schedules.edit', [$Schedules->id])) !!}
+                            {!! cui()->btn_delete(route('backend.schedules.destroy', [$Schedules->id]), "Anda yakin ingin menghapus jadwal perkuliahan ini?") !!}
                         </td>
                     </tr>
                 @empty

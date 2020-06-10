@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\Backend\Academic;
 
 use App\Models\ClassSchedule;
-
-
 use App\Models\Schedules;
-use App\Models\ClassSchedule;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Classroom;
@@ -22,12 +19,11 @@ class ScheduleController extends Controller
      */
     public function index()
     {
+        //$schedules = ClassSchedule::all();
+        $schedules = ClassSchedule::paginate(config('default_paginate_item', 25));
 
-
-        $class_schedules = Schedules::paginate(config('default_paginate_item', 25));
-       
-        return view('klp11.schedule.index', compact('class_schedules'));
-           }
+        return view('klp11.schedules.index', ['Schedules'=>$schedules]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -38,39 +34,16 @@ class ScheduleController extends Controller
     {
 
         $haris = ClassSchedule::HARI_SELECT;
+        $classrooms = classroom::all()->pluck('name','id');
+        $rooms = room::all()->pluck('name','id');
 
-        //memanggil view tambah
-       
-     $classrooms = classroom::all()->pluck('id');
-     $rooms = room::all()->pluck('id');
-     return view('klp11.schedule.create');
+        return view('klp11.schedules.create', compact('classrooms','rooms','haris'));
     }
+
 
        public function store(Request $request)
-    {
-     
-        $request->validate(schedules::VALIDATION_RULES);
-        $class_schedules = schedules::create($request->all());
-        if($class_schedules)
-        {
-            notify('success', 'Berhasil menyimpan data kelas');
-        }else{
-            notify('error', 'Gagal menyimpan data kelas');
-        }
-        return redirect()->route('backend.schedules.show', $class_schedules->id);
-
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-
-    public function store(Request $request)
-    {
+     {
+        //
         $haris = ClassSchedule::HARI_SELECT;
         $request->validate(ClassSchedule::validation_rules);
         $ClassSchedules = ClassSchedule::all();
@@ -81,7 +54,7 @@ class ScheduleController extends Controller
 
                          notify('error', 'Ruangan Tidak Tersedia');
                          return redirect()->route('backend.schedules.create');
-                    
+
                 }
             }
             }
@@ -97,6 +70,13 @@ class ScheduleController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     */  
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
  
     /**
@@ -106,7 +86,7 @@ class ScheduleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    {   
         return view('backend.schedules.show', compact('classroom'));
     }
 
@@ -123,7 +103,7 @@ class ScheduleController extends Controller
         $classrooms = classroom::all()->pluck('name','id');
         $rooms = room::all()->pluck('name','id');
 
-        return view('klp11.schedules.edit', compact('schedule','classrooms','rooms','haris'))
+        return view('klp11.schedule.edit', compact('schedule','classrooms','rooms','haris'));
 
     }
 
@@ -134,6 +114,7 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, ClassSchedule $schedule)
     {
 
@@ -145,7 +126,7 @@ class ScheduleController extends Controller
                 if (strtotime($cs->start_at)<=strtotime($request->start_at) && strtotime($cs->end_at)>=strtotime($request->start_at) || strtotime($cs->start_at)<=strtotime($request->end_at) && strtotime($cs->end_at)>=strtotime($request->end_at)) {
 
                          notify('Edit Gagal!!', 'Ruangan Tidak Tersedia');
-                         return redirect()->route('backend.schedules.edit');
+                         return redirect()->route('backend.schedules.index');
                     
                 }
                 else{
@@ -193,17 +174,10 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ClassSchedule $schedule)
     {
         //
-        $schedules = ClassSchedule::find($id);
-        $schedules->    delete();
-
-        if($building->delete()){
-            notify('success', 'Behasil menghapus data gedung');
-        }else{
-            notify('error', 'Gagal menghapus data Gedung');
-        }
+        ClassSchedule::destroy($schedule->id);
         return redirect()->route('backend.schedules.index');
     }
 }

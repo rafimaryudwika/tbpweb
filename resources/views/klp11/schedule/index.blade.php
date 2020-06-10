@@ -28,7 +28,7 @@
                     <div class="row justify-content-end">
                         <div class="col-md-6 justify-content-end">
                             <div class="row justify-content-end">
-                                {{ $class_schedules->links() }}
+                                {{ $Schedules->links() }}
                             </div>
                         </div>
                     </div>
@@ -46,13 +46,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($class_schedules as $class_schedule)
+                        @forelse($Schedules as $class_schedule)
                             <tr>
                                 <td>{{ $class_schedule->classroom_id }}</td>
                                 <td>{{ $class_schedule->day }}</td>
                                 <td class="text-center">
-                                        {!! cui()->btn_edit(route('backend.schedules.edit', [$class_schedules->id])) !!}
-                                        {!! cui()->btn_delete(route('backend.schedules.destroy', [$class_schedules->id]), "Anda yakin akan menghapus data kelas ini?") !!}
+                                        {!! cui()->btn_edit(route('backend.schedules.edit', [$Schedules->id])) !!}
+                                        {!! cui()->btn_delete(route('backend.schedules.destroy', [$Schedules->id]), "Anda yakin akan menghapus data kelas ini?") !!}
                                     
                                 </td>
                             </tr>
@@ -72,7 +72,7 @@
                         </div>
                         <div class="col-md-6 justify-content-end">
                             <div class="row justify-content-end">
-                                {{ $class_schedules->links() }}
+                                {{ $Schedules->links() }}
                             </div>
                         </div>
                     </div>
