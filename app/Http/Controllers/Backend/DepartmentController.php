@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Gate;
 
 class DepartmentController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['permission:departments_access']);
-    }
+ //   public function __construct()
+ //   {
+  //      $this->middleware(['permission:departments_access']);
+ //   }
 
     public function index()
     {
