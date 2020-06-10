@@ -18,6 +18,7 @@ class ScheduleController extends Controller
         //
         $schedules = ClassSchedule::all();
         return view('klp11.schedules.index', ['schedules'=>$schedules]);
+        //tau
     }
 
     /**
