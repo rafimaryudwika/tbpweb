@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ClassSchedule extends Model
 {
+
     protected $table = 'class_schedules';
 
       const SENIN = 1;
@@ -20,6 +21,7 @@ class ClassSchedule extends Model
         self::KAMIS => 'Kamis',
         self::JUMAT => 'Jumat',
     ];
+
     	public function matkul()
     	{
         	return $this->belongsTo(Classroom::class, 'classroom_id', 'id');
@@ -29,6 +31,7 @@ class ClassSchedule extends Model
     	{
         	return $this->belongsTo(Room::class, 'room_id', 'id');
     	}
+
     	const validation_rules = [
      			'classroom_id' => 'required',
      			'end_at' => 'required',
@@ -49,4 +52,5 @@ class ClassSchedule extends Model
     {
         return $this->belongsTo(room::class);
     }
+
 }
