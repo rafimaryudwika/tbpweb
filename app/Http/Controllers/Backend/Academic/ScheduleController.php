@@ -34,7 +34,7 @@ class ScheduleController extends Controller
        
      $classrooms = classroom::all()->pluck('id');
      $rooms = room::all()->pluck('id');
-     return view('klp11.schedule.create');
+     return view('backends.schedules.create');
     }
 
        public function store(Request $request)
