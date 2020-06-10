@@ -1,63 +1,10 @@
-<?php
-
-namespace App\Http\Controllers\Backend\Academic;
-
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
-class ScheduleController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+public function edit(ClassSchedule $schedule)
     {
-        //
-    }
+        $haris = ClassSchedule::HARI_SELECT;
+        $classrooms = classroom::all()->pluck('name','id');
+        $rooms = room::all()->pluck('name','id');
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return view('klp11.schedules.edit', compact('schedule','classrooms','rooms','haris'));
     }
 
     /**
@@ -67,19 +14,42 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ClassSchedule $schedule)
     {
-        //
-    }
+        $haris = ClassSchedule::HARI_SELECT;
+        $ClassSchedules = ClassSchedule::all();
+        foreach ($ClassSchedules as $cs) {
+            if ($cs->day==$request->day) {
+                if ($cs->room_id==$request->room_id) {
+                if (strtotime($cs->start_at)<=strtotime($request->start_at) && strtotime($cs->end_at)>=strtotime($request->start_at) || strtotime($cs->start_at)<=strtotime($request->end_at) && strtotime($cs->end_at)>=strtotime($request->end_at)) {
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+                         notify('Edit Gagal!!', 'Ruangan Tidak Tersedia');
+                         return redirect()->route('backend.schedules.edit');
+                    
+                }
+                else{
+                    $schedule->update($request->only(
+                    'classroom_id',
+                    'day',
+                    'room_id',
+                    'start_at',
+                    'end_at',
+                    'period'
+                ));
+                    notify('success', 'Berhasil mengedit data Schedules2');
+                    return redirect()->route('backend.schedules.index');
+                }
+            }
+            }
     }
-}
+     $schedule->update($request->only(
+                    'classroom_id',
+                    'day',
+                    'room_id',
+                    'start_at',
+                    'end_at',
+                    'period'
+                ));
+                    notify('success', 'Berhasil mengedit data Schedules2');
+                    return redirect()->route('backend.schedules.index');   
+    }
