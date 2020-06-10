@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Classroom extends Model
 {
-     const VALIDATION_RULES = [
+
+    const VALIDATION_RULES = [
+
         'name' => 'required'
     ];
 

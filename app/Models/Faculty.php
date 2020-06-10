@@ -9,7 +9,7 @@ class Faculty extends Model
     const validation_rules = [
         'name' => 'required'
     ];
-
+    
     protected $guarded = [];
 
     public function departments()

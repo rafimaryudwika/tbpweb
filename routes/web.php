@@ -45,9 +45,9 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Backend', 'prefix' => 'adm
 //        Route::resource('intern-supervisors', 'InternshipSupervisorController')->only(['index']);
 
         /** K07 - ADM */
-//        Route::post('interns/filter', 'InternshipController@filter')->name('interns.filter');
-//        Route::resource('interns', 'InternshipController')->except(['destroy','create', 'store']);
-//        Route::resource('intern-seminars', 'InternshipSeminarController')->only(['show', 'edit', 'update']);
+       // Route::post('interns/filter', 'InternshipController@filter')->name('interns.filter');
+        //Route::resource('interns', 'InternshipController')->except(['destroy','create', 'store']);
+        //Route::resource('intern-seminars', 'InternshipSeminarController')->only(['show', 'edit', 'update','create']);
 //        Route::resource('intern-seminars.audiences', 'InternshipSeminarAudienceController')->only(['create', 'store']);
 
     });
@@ -73,9 +73,15 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Backend', 'prefix' => 'adm
 //        Route::resource('classrooms.students', 'ClassroomStudentController')->only(['create', 'store', 'destroy']);
 
         /** K11 - ADM */
-        Route::post('semesters', 'SemesterController@activate')->name('semesters.activate');
-        Route::resource('semesters', 'SemesterController')->except(['show', 'destroy']);
-        Route::resource('schedules', 'ScheduleController')->except(['show']);
+
+
+
+       Route::post('semesters/activate/{semester}', 'SemesterController@activate')->name('semesters.activate');
+       Route::resource('semesters', 'SemesterController')->except(['show', 'destroy']);
+       Route::resource('schedules', 'ScheduleController')->except(['show']);
+
+
+
 
 
     });
