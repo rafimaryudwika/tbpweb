@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Backend\Academic;
 
+use App\Models\Schedules;
 use App\Http\Controllers\Controller;
-use App\Models\ClassSchedule;
 use Illuminate\Http\Request;
+use App\Models\Classroom;
+use App\Models\Room;
 
 class ScheduleController extends Controller
 {
@@ -15,9 +17,10 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        //
-        $schedules = ClassSchedule::all();
-        return view('klp11.schedules.index', ['schedules'=>$schedules]);
+        $class_schedules = Schedules::paginate(config('default_paginate_item', 25));
+       
+        return view('klp11.schedule.index', compact('class_schedules'));
+       
     }
 
     /**
@@ -27,7 +30,25 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        //
+        //memanggil view tambah
+       
+     $classrooms = classroom::all()->pluck('id');
+     $rooms = room::all()->pluck('id');
+     return view('backends.schedules.create');
+    }
+
+       public function store(Request $request)
+    {
+     
+        $request->validate(schedules::VALIDATION_RULES);
+        $class_schedules = schedules::create($request->all());
+        if($class_schedules)
+        {
+            notify('success', 'Berhasil menyimpan data kelas');
+        }else{
+            notify('error', 'Gagal menyimpan data kelas');
+        }
+        return redirect()->route('backend.schedules.show', $class_schedules->id);
     }
 
     /**
@@ -36,11 +57,7 @@ class ScheduleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
-
+ 
     /**
      * Display the specified resource.
      *
@@ -49,7 +66,7 @@ class ScheduleController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('backend.schedules.show', compact('classroom'));
     }
 
     /**
@@ -60,7 +77,7 @@ class ScheduleController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('backend.schedules.edit', compact('classroom'));
     }
 
     /**
@@ -72,7 +89,14 @@ class ScheduleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate(schedules::VALIDATION_RULES);
+        if($class_schedules->update($request->all()))
+        {
+            notify('success', 'Berhasil memperbaharui data kelas');
+        }else{
+            notify('error', 'Gagal memperbaharui data kelas');
+        }
+        return redirect()->route('backend.schedules.show', $class_schedules);
     }
 
     /**
@@ -83,9 +107,11 @@ class ScheduleController extends Controller
      */
     public function destroy($id)
     {
-        //
-        $schedules = ClassSchedule::find($id);
-        $schedules->    delete();
+        if($building->delete()){
+            notify('success', 'Behasil menghapus data gedung');
+        }else{
+            notify('error', 'Gagal menghapus data Gedung');
+        }
         return redirect()->route('backend.schedules.index');
     }
 }
