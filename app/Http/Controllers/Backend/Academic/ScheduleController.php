@@ -40,12 +40,6 @@ class ScheduleController extends Controller
     }
 
 
-       public function store(Request $request)
-     {
-        //
-=======
-        return view('klp11.schedules.create', compact('classrooms','rooms','haris'));
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -55,7 +49,6 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
->>>>>>> 9e38b89e5751a1f70a0c240292b45120bc663ecc
         $haris = ClassSchedule::HARI_SELECT;
         $request->validate(ClassSchedule::validation_rules);
         $ClassSchedules = ClassSchedule::all();
@@ -114,7 +107,7 @@ class ScheduleController extends Controller
         $classrooms = classroom::all()->pluck('name','id');
         $rooms = room::all()->pluck('name','id');
 
-        return view('klp11.schedule.edit', compact('schedule','classrooms','rooms','haris'));
+        return view('klp11.schedules.edit', compact('schedule','classrooms','rooms','haris'));
     }
 
     /**

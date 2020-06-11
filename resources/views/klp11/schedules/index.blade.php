@@ -37,7 +37,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($Schedules as $Schedules)
+                @forelse($schedules as $schedules)
                     <tr>
 
                         @if ($schedules->day=="1")
@@ -53,17 +53,17 @@
                         @endif
                         <td>{{ $schedules->matkul->name}}</td>
                         <td>
-                            {{ $Schedules->start_at }}
+                            {{ $schedules->start_at }}
                             <br>
                             s/d
                             <br>
-                            {{ $Schedules->end_at }}
+                            {{ $schedules->end_at }}
                         </td>
-                        <td>{{ $Schedules->ruang->name}}</td>
-                        <td>{{ $Schedules->period }}</td>
+                        <td>{{ $schedules->ruang->name}}</td>
+                        <td>{{ $schedules->period }}</td>
                         <td>
-                            {!! cui()->btn_edit(route('backend.schedules.edit', [$Schedules->id])) !!}
-                            {!! cui()->btn_delete(route('backend.schedules.destroy', [$Schedules->id]), "Anda yakin ingin menghapus jadwal perkuliahan ini?") !!}
+                            {!! cui()->btn_edit(route('backend.schedules.edit', [$schedules->id])) !!}
+                            {!! cui()->btn_delete(route('backend.schedules.destroy', [$schedules->id]), "Anda yakin ingin menghapus jadwal perkuliahan ini?") !!}
                         </td>
                     </tr>
                 @empty
