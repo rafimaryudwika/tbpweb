@@ -82,7 +82,6 @@
                     </a>
                 </li>
             @endcan
-
             @can('rooms_access')
                 <li class="c-sidebar-nav-item">
                     <a class="c-sidebar-nav-link" href="{{ route('backend.schedules.index') }}">
@@ -98,6 +97,8 @@
                         Semester
                     </a>
                 </li>
+            @endcan
+        @endcanany
 
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{ route('frontend.myintern-proposals.index') }}">
