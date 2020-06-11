@@ -95,6 +95,23 @@ class SemesterController extends Controller
         return redirect()->route('backend.semesters.index');
         
     }
+    public function activate(Request $request, Semester $semester)
+    {
+
+            $aktifkan = 1;
+            $nonaktifkan=0;
+            $semesters = Semester::all();
+            $semesters = Semester::where($request->id)
+            ->update([
+                    'aktif'=>$nonaktifkan
+                    ]); 
+            $semesters = Semester::where('id',$semester->id)
+            ->update([
+                    'aktif'=>$aktifkan
+                    ]);
+                     notify('success', 'Berhasil mengedit data Semester ');
+                     return redirect()->route('backend.semesters.index'); 
+    }
 
     /**
      * Display the specified resource.
