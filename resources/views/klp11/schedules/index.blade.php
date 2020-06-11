@@ -39,7 +39,17 @@
                 <tbody>
                 @forelse($schedules as $schedules)
                     <tr>
-                        <td>{{ $schedules->day }}</td>
+                        @if ($schedules->day=="1")
+                        <td>Senin</td>
+                        @elseif ($schedules->day=="2")
+                        <td>Selasa</td>
+                        @elseif ($schedules->day=="3")
+                        <td>Rabu</td>
+                        @elseif ($schedules->day=="4")
+                        <td>Kamis</td>
+                        @elseif ($schedules->day=="5")
+                        <td>Jumat</td>
+                        @endif
                         <td>{{ $schedules->matkul->name}}</td>
                         <td>
                             {{ $schedules->start_at }}

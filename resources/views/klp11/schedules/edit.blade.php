@@ -28,8 +28,8 @@
 
                         {{-- CARD BODY--}}
                         <div class="card-body">
-                            @include('sklp11.schedules._form1')
-                        </div>
+                            @include('klp11.schedules._form1')
+                        </div> 
 
                         {{--CARD FOOTER--}}
                         <div class="card-footer">

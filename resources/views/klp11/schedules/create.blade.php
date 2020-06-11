@@ -28,7 +28,7 @@
 
                         {{-- CARD BODY--}}
                         <div class="card-body">
-                            @include('backends.schedules._form')
+                            @include('klp11.schedules._form')
                         </div>
 
                         {{--CARD FOOTER--}}
