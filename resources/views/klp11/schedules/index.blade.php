@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-
+ 
 @section('breadcrumb')
     {!! cui()->breadcrumb([
         'Home' => route('home'),
@@ -59,7 +59,11 @@
                             {{ $schedules->end_at }}
                         </td>
                         <td>{{ $schedules->ruang->name}}</td>
-                        <td>{{ $schedules->period }}</td>
+                        @if ($schedules->semester->period=="0")
+                        <td>{{ $schedules->semester->year }} (genap)</td>
+                        @elseif ($schedules->semester->period=="1")
+                        <td>{{ $schedules->semester->year }} (ganjil)</td>
+                        @endif
                         <td>
                             {!! cui()->btn_edit(route('backend.schedules.edit', [$schedules->id])) !!}
                             {!! cui()->btn_delete(route('backend.schedules.destroy', [$schedules->id]), "Anda yakin ingin menghapus jadwal perkuliahan ini?") !!}

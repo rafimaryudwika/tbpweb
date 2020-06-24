@@ -31,11 +31,16 @@ class ClassSchedule extends Model
     	{
         	return $this->belongsTo(Room::class, 'room_id', 'id');
     	}
-
+       public function semester()
+      {
+          return $this->belongsTo(Semester::class, 'period', 'id');
+      }
     	const validation_rules = [
      			'classroom_id' => 'required',
      			'end_at' => 'required',
    				'room_id' => 'required',
+          'start_at' => 'required',
+          'day' => 'required',
   				'period' => 'required'
     		];
 

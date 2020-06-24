@@ -38,12 +38,9 @@ class SemesterController extends Controller
      */
     public function create()
     {
-        $aktifs = Semester::AKTIF_SELECT;
         $periodes = Semester::PERIODE_SELECT;
 
         return view('klp11.semesters.create', compact(
-            'aktifs',
-            'aktifs',
             'periodes',
             'periodes'
         ));
@@ -59,6 +56,7 @@ class SemesterController extends Controller
     {
         $aktifs = Semester::AKTIF_SELECT;
         $periodes = Semester::PERIODE_SELECT;
+        $request->validate(Semester::validation_rules);
         $semesters = Semester::all();
         foreach ($semesters as $semester) {
             if ($semester->year==$request->year) {
@@ -71,7 +69,7 @@ class SemesterController extends Controller
         Semester::create([
                     'year' => $request->year,
                     'period' => $request->period,
-                    'aktif' =>  $request->aktif,
+                    'aktif' =>  0,
                 ]);
         notify('success', 'Data telah diinputkan1');
         return redirect()->route('backend.semesters.index');
@@ -91,7 +89,7 @@ class SemesterController extends Controller
             ->update([
                     'aktif'=>$aktifkan
                     ]);
-                     notify('success', 'Berhasil mengedit data Semester ');
+                     notify('success', 'Berhasil mengaktifkan Semester ');
                      return redirect()->route('backend.semesters.index'); 
     }
 
@@ -156,6 +154,7 @@ class SemesterController extends Controller
     {
 
         $periodes = Semester::PERIODE_SELECT;
+        $request->validate(Semester::validation_rules);
         $semesters = Semester::all();
         foreach ($semesters as $semesteres) {
             if ($semesteres->year==$request->year) {
