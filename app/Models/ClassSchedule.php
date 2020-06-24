@@ -6,8 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class ClassSchedule extends Model
 {
+    //
 
     protected $table = 'class_schedules';
+
+        public function matkul()
+        {
+            return $this->belongsTo(Classroom::class, 'classroom_id', 'id');
+        }
+
+        public function ruang()
+        {
+            return $this->belongsTo(Room::class, 'room_id', 'id');
+        }
 
       const SENIN = 1;
       const SELASA = 2;
@@ -21,6 +32,7 @@ class ClassSchedule extends Model
         self::KAMIS => 'Kamis',
         self::JUMAT => 'Jumat',
     ];
+
 
     	public function matkul()
     	{
@@ -44,6 +56,7 @@ class ClassSchedule extends Model
   				'period' => 'required'
     		];
 
+
     protected $fillable = [ 'classroom_id', 'day', 'start_at', 'end_at', 'room_id', 'period'];
 
 
@@ -57,5 +70,4 @@ class ClassSchedule extends Model
     {
         return $this->belongsTo(room::class);
     }
-
 }

@@ -39,6 +39,7 @@
                 <tbody>
                 @forelse($schedules as $schedules)
                     <tr>
+
                         @if ($schedules->day=="1")
                         <td>Senin</td>
                         @elseif ($schedules->day=="2")

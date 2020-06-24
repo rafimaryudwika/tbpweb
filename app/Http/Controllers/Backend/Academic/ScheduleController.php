@@ -9,6 +9,7 @@ use App\Models\Classroom;
 use App\Models\Room;
 use App\Models\Semester;
 
+
 class ScheduleController extends Controller
 {
     /**
@@ -18,6 +19,8 @@ class ScheduleController extends Controller
      */
     public function index()
     {
+
+        //$schedules = ClassSchedule::all();
         $haris = ClassSchedule::HARI_SELECT;
         $schedules = ClassSchedule::all();
         return view('klp11.schedules.index', ['schedules'=>$schedules]);
@@ -47,6 +50,8 @@ class ScheduleController extends Controller
         return view('klp11.schedules.create', compact('classrooms','semesters','rooms','haris'));
     }
 
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -65,7 +70,7 @@ class ScheduleController extends Controller
 
                          notify('error', 'Ruangan Tidak Tersedia');
                          return redirect()->route('backend.schedules.create');
-                    
+
                 }
             }
             }
@@ -76,14 +81,29 @@ class ScheduleController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */  
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+ 
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+
+    {   
+        return view('backend.schedules.show', compact('classroom'));
     }
 
     /**
@@ -118,6 +138,7 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, ClassSchedule $schedule)
     {
         $haris = ClassSchedule::HARI_SELECT;
@@ -129,7 +150,9 @@ class ScheduleController extends Controller
                 if (strtotime($cs->start_at)<=strtotime($request->start_at) && strtotime($cs->end_at)>=strtotime($request->start_at) || strtotime($cs->start_at)<=strtotime($request->end_at) && strtotime($cs->end_at)>=strtotime($request->end_at)) {
 
                          notify('Edit Gagal!!', 'Ruangan Tidak Tersedia');
+
                          return redirect()->route('backend.schedules.edit', [$schedule->id]);
+
                     
                 }
                 else{
@@ -165,11 +188,14 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ClassSchedule $schedule)
     {
         //
-        $schedules = ClassSchedule::find($id);
-        $schedules->    delete();
+
+        ClassSchedule::destroy($schedule->id);
+        //$schedules = ClassSchedule::find($id);
+        //$schedules->    delete();
+
         return redirect()->route('backend.schedules.index');
     }
 }

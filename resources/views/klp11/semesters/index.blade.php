@@ -33,11 +33,13 @@
         <tr>
             <td>{{ $semester->year }}</td>
 
+
             @if ($semester->period=="1")
             <td>Ganjil</td>
             @else
             <td>Genap</td>
             @endif
+
             @if ($semester->aktif=="1")
             <td><button type="button" class="btn btn-primary" style="text-align: center;">Aktif</button>
             {!! cui()->btn_edit(route('backend.semesters.edit', [$semester->id])) !!}
@@ -50,6 +52,7 @@
                     {!! cui()->btn_edit(route('backend.semesters.edit', [$semester->id])) !!}               
                 </form>
             @endif
+
             </td>
         </tr>
     @endforeach

@@ -19,7 +19,7 @@
                 <div class="col-md-8">
                     <div class="card">
 
-                        {{ html()->modelForm($schedule, 'PUT', route('backend.schedules.update', $schedule->id))->acceptsFiles()->open() }}
+                        {{ html()->form('POST', route('backend.schedules.store'))->open() }}
 
                         {{-- CARD HEADER--}}
                         <div class="card-header">
@@ -28,16 +28,15 @@
 
                         {{-- CARD BODY--}}
                         <div class="card-body">
-
-                            @include('klp11.schedules._form1')
-                        </div> 
+                            @include('backends.schedules._form')
+                        </div>
 
                         {{--CARD FOOTER--}}
                         <div class="card-footer">
                             <input type="submit" value="Simpan" class="btn btn-primary"/>
                         </div>
 
-                        {{ html()->closeModelForm() }} 
+                        {{ html()->form()->close() }}
                     </div>
                 </div>
 
