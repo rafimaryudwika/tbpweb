@@ -22,6 +22,10 @@ class Semester extends Model
     const AKTIF_SELECT = [
         self::NACTIVE => 'Tidak Aktif',
     ];
+    const validation_rules = [
+                'year' => 'required',
+                'period' => 'required'
+            ];
 
     public function getAktifTextAttribute($value)
     {
@@ -40,6 +44,10 @@ class Semester extends Model
             return null;
         }
         return data_get(self::PERIODE_SELECT, $this->period, null);
+    }
+     public function class_schedules()
+    {
+        return $this->hasMany(ClassSchedule::class);
     }
 
 }

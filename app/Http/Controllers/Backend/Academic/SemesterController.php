@@ -36,32 +36,12 @@ class SemesterController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function activate(Request $request, Semester $semester)
-    {
-
-            $aktifkan = 1;
-            $nonaktifkan=0;
-            $semesters = Semester::all();
-            $semesters = Semester::where($request->id)
-            ->update([
-                    'aktif'=>$nonaktifkan
-                    ]); 
-            $semesters = Semester::where('id',$semester->id)
-            ->update([
-                    'aktif'=>$aktifkan
-                    ]);
-                     notify('success', 'Berhasil mengedit data Semester ');
-                     return redirect()->route('backend.semesters.index'); 
-    }
     
     public function create()
     {
-        $aktifs = Semester::AKTIF_SELECT;
         $periodes = Semester::PERIODE_SELECT;
 
         return view('klp11.semesters.create', compact(
-            'aktifs',
-            'aktifs',
             'periodes',
             'periodes'
         ));
@@ -77,6 +57,7 @@ class SemesterController extends Controller
     {
         $aktifs = Semester::AKTIF_SELECT;
         $periodes = Semester::PERIODE_SELECT;
+        $request->validate(Semester::validation_rules);
         $semesters = Semester::all();
         foreach ($semesters as $semester) {
             if ($semester->year==$request->year) {
@@ -89,12 +70,31 @@ class SemesterController extends Controller
         Semester::create([
                     'year' => $request->year,
                     'period' => $request->period,
-                    'aktif' =>  $request->aktif,
+                    'aktif' =>  0,
                 ]);
         notify('success', 'Data telah diinputkan1');
         return redirect()->route('backend.semesters.index');
         
     }
+
+    public function activate(Request $request, Semester $semester)
+    {
+
+            $aktifkan = 1;
+            $nonaktifkan=0;
+            $semesters = Semester::all();
+            $semesters = Semester::where($request->id)
+            ->update([
+                    'aktif'=>$nonaktifkan
+                    ]); 
+            $semesters = Semester::where('id',$semester->id)
+            ->update([
+                    'aktif'=>$aktifkan
+                    ]);
+                     notify('success', 'Berhasil mengaktifkan Semester ');
+                     return redirect()->route('backend.semesters.index'); 
+    }
+
     //public function activate(Request $request, Semester $semester)
     //{
 //
@@ -112,6 +112,7 @@ class SemesterController extends Controller
     //                 notify('success', 'Berhasil mengedit data Semester ');
     //                 return redirect()->route('backend.semesters.index'); 
     //}
+
 
     /**
      * Display the specified resource.
@@ -174,6 +175,7 @@ class SemesterController extends Controller
     {
 
         $periodes = Semester::PERIODE_SELECT;
+        $request->validate(Semester::validation_rules);
         $semesters = Semester::all();
         foreach ($semesters as $semesteres) {
             if ($semesteres->year==$request->year) {

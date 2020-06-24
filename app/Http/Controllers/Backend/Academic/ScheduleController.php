@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Classroom;
 use App\Models\Room;
+use App\Models\Semester;
 
 
 class ScheduleController extends Controller
@@ -35,8 +36,18 @@ class ScheduleController extends Controller
         $haris = ClassSchedule::HARI_SELECT;
         $classrooms = classroom::all()->pluck('name','id');
         $rooms = room::all()->pluck('name','id');
-
-        return view('klp11.schedules.create', compact('classrooms','rooms','haris'));
+        $semesters = semester::all(['id', 'year', 'period'])
+                        ->keyBy('id')
+                        ->map(function ($semester) {
+                            if ($semester->period==1) {
+                                $hasil='ganjil';
+                            }
+                            else{
+                                $hasil='genap';   
+                            }
+                            return "{$semester->year} ($hasil)";
+                        });
+        return view('klp11.schedules.create', compact('classrooms','semesters','rooms','haris'));
     }
 
 
@@ -55,7 +66,7 @@ class ScheduleController extends Controller
         foreach ($ClassSchedules as $cs) {
             if ($cs->day==$request->day) {
                 if ($cs->room_id==$request->room_id) {
-                if (strtotime($cs->start_at)<=strtotime($request->start_at) && strtotime($cs->end_at)>=strtotime($request->start_at) || strtotime($cs->start_at)<=strtotime($request->end_at) && strtotime($cs->end_at)>=strtotime($request->end_at)) {
+                if (strtotime($cs->start_at)<=strtotime($request->start_at) && strtotime($cs->end_at)>=strtotime($request->start_at) || strtotime($cs->start_at)<=strtotime($request->end_at) && strtotime($cs->end_at)>=strtotime($request->end_at || strtotime($cs->start_at)>=strtotime($request->start_at) && strtotime($cs->end_at)<=strtotime($request->end_at))) {
 
                          notify('error', 'Ruangan Tidak Tersedia');
                          return redirect()->route('backend.schedules.create');
@@ -106,8 +117,18 @@ class ScheduleController extends Controller
         $haris = ClassSchedule::HARI_SELECT;
         $classrooms = classroom::all()->pluck('name','id');
         $rooms = room::all()->pluck('name','id');
-
-        return view('klp11.schedules.edit', compact('schedule','classrooms','rooms','haris'));
+        $semesters = semester::all(['id', 'year', 'period'])
+                        ->keyBy('id')
+                        ->map(function ($semester) {
+                            if ($semester->period==1) {
+                                $hasil='ganjil';
+                            }
+                            else{
+                                $hasil='genap';   
+                            }
+                            return "{$semester->year} ($hasil)";
+                        });
+        return view('klp11.schedules.edit', compact('schedule','classrooms','semesters','rooms','haris'));
     }
 
     /**
@@ -121,6 +142,7 @@ class ScheduleController extends Controller
     public function update(Request $request, ClassSchedule $schedule)
     {
         $haris = ClassSchedule::HARI_SELECT;
+        $request->validate(ClassSchedule::validation_rules);
         $ClassSchedules = ClassSchedule::all();
         foreach ($ClassSchedules as $cs) {
             if ($cs->day==$request->day) {

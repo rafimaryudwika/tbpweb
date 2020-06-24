@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-
+ 
 @section('breadcrumb')
     {!! cui()->breadcrumb([
         'Home' => route('home'),
@@ -25,7 +25,6 @@
         <tr>
             <th>Year</th>
             <th>Periode</th>
-            <th>Aktif</th>
             <th>Aksi</th>
         </tr>
     </thead>
@@ -42,18 +41,18 @@
             @endif
 
             @if ($semester->aktif=="1")
-            <td><button type="button" class="btn btn-primary" style="text-align: center;">Aktif</button></td>
+            <td><button type="button" class="btn btn-primary" style="text-align: center;">Aktif</button>
+            {!! cui()->btn_edit(route('backend.semesters.edit', [$semester->id])) !!}
+            </td>
             @else
             <td>
                 <form method="POST" action="{{route('backend.semesters.activate', [$semester->id])}}">
                     @csrf
-                    <input type="submit" value="Aktifkan Semester" class="btn btn-secondary">
+                    <input type="submit" value="Aktifkan" class="btn btn-secondary">
+                    {!! cui()->btn_edit(route('backend.semesters.edit', [$semester->id])) !!}               
                 </form>
-            </td>
-            @endif 
+            @endif
 
-            <td>
-                {!! cui()->btn_edit(route('backend.semesters.edit', [$semester->id])) !!}
             </td>
         </tr>
     @endforeach

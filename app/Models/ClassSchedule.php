@@ -33,12 +33,29 @@ class ClassSchedule extends Model
         self::JUMAT => 'Jumat',
     ];
 
-        const validation_rules = [
-                'classroom_id' => 'required',
-                'end_at' => 'required',
-                'room_id' => 'required',
-                'period' => 'required'
-            ];
+
+    	public function matkul()
+    	{
+        	return $this->belongsTo(Classroom::class, 'classroom_id', 'id');
+    	}
+
+    	public function ruang()
+    	{
+        	return $this->belongsTo(Room::class, 'room_id', 'id');
+    	}
+       public function semester()
+      {
+          return $this->belongsTo(Semester::class, 'period', 'id');
+      }
+    	const validation_rules = [
+     			'classroom_id' => 'required',
+     			'end_at' => 'required',
+   				'room_id' => 'required',
+          'start_at' => 'required',
+          'day' => 'required',
+  				'period' => 'required'
+    		];
+
 
     protected $fillable = [ 'classroom_id', 'day', 'start_at', 'end_at', 'room_id', 'period'];
 

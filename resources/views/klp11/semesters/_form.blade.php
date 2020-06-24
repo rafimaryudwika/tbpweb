@@ -15,12 +15,5 @@
     <div class="invalid-feedback">{{ $errors->first('period') }}</div>
     @enderror
 </div>
-<div class="form-group">
-    <label class="form-label" for="aktif">Status</label>
-    {{ html()->select('aktif')->options($aktifs)->class(["form-control", "is-invalid" => $errors->has('aktif')])->id('aktif')->placeholder('Pilih Status') }}
-    @error('aktif')
-    <div class="invalid-feedback">{{ $errors->first('aktif') }}</div>
-    @enderror
-</div>
 
 

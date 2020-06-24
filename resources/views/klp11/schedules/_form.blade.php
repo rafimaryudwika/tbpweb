@@ -6,7 +6,7 @@
     <div class="invalid-feedback">{{ $errors->first('classroom_id') }}</div>
     @enderror
 </div>
-
+ 
 <div class="form-group">
     <label class="form-label" for="day">Hari</label>
     {{ html()->select('day')->options($haris)->class(["form-control", "is-invalid" => $errors->has('day')])->id('day')->placeholder('Pilih Hari') }}
@@ -19,7 +19,7 @@
 <div class="form-group">
     <label class="form-label" for="start_at">Mulai</label>
     {{ html()->time('start_at')->class(['form-control', 'is-invalid' => $errors->has('start_at')])->id('start_at')->placeholder('Jadwal Mulai') }}
-    @error('abbreviation')
+    @error('start_at')
     <div class="invalid-feedback">{{ $errors->first('start_at') }}</div>
     @enderror
 </div>
@@ -45,7 +45,7 @@
 <!-- Text Field Input for National Code -->
 <div class="form-group">
     <label class="form-label" for="period">Periode</label>
-    {{ html()->text('period')->class(["form-control", "is-invalid" => $errors->has('period')])->id('period')->placeholder('Periode') }}
+    {{ html()->select('period')->options($semesters)->class(["form-control", "is-invalid" => $errors->has('period')])->id('period') }}
     @error('period')
     <div class="invalid-feedback">{{ $errors->first('period') }}</div>
     @enderror
